@@ -6,6 +6,7 @@ import 'package:semi_final_lab/view_model/home_view_model.dart';
 import 'package:semi_final_lab/views/auth/login_view.dart';
 
 import '../models/user_model.dart';
+import 'news_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -37,9 +38,38 @@ class _HomeViewState extends State<HomeView> {
               leading: const Icon(Icons.logout),
               onTap: () {
                 FirebaseAuth.instance.signOut();
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const LoginView()));
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (_) => const LoginView()),
+                );
               },
             ),
+            ListTile(
+              title: const Text('News'),
+              leading: const Icon(Icons.newspaper),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => NewsView(
+                            role: user!.role,
+                          )),
+                );
+              },
+            ),
+            // ListTile(
+            //   title: const Text('News'),
+            //   leading: const Icon(Icons.newspaper),
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //           builder: (_) => NewsView(
+            //                 role: user!.role,
+            //               )),
+            //     );
+            //   },
+            // ),
           ],
         ),
       ),
