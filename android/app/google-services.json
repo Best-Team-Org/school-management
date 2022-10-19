@@ -1,0 +1,126 @@
+{
+  "project_info": {
+    "project_number": "226983170954",
+    "project_id": "semi-final-lab-a20ae",
+    "storage_bucket": "semi-final-lab-a20ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:226983170954:android:a7a13fb5a73587fc832e73",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "226983170954-uffoqd2a8f7ss5cp38gv6u9ea2h5shd9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtuHbIvMkuHTHt7rCaLJ3mFX4tCPuqeb4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "226983170954-uffoqd2a8f7ss5cp38gv6u9ea2h5shd9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "226983170954-6b6g3dmhcfdjfv80s3v0gfimt6pmsd8e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.citycafeApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:226983170954:android:b273c5e4f2965409832e73",
+        "android_client_info": {
+          "package_name": "com.example.citycafe_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "226983170954-uffoqd2a8f7ss5cp38gv6u9ea2h5shd9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtuHbIvMkuHTHt7rCaLJ3mFX4tCPuqeb4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "226983170954-uffoqd2a8f7ss5cp38gv6u9ea2h5shd9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "226983170954-6b6g3dmhcfdjfv80s3v0gfimt6pmsd8e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.citycafeApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:226983170954:android:4603ca74fe5c1be7832e73",
+        "android_client_info": {
+          "package_name": "com.example.semi_final_lab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "226983170954-e0gv591ils1vq44l5g88ru45j7lfd1er.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.semi_final_lab",
+            "certificate_hash": "6297fbf0dc2cbf88a831e57ae3fae1fd12ae9160"
+          }
+        },
+        {
+          "client_id": "226983170954-uffoqd2a8f7ss5cp38gv6u9ea2h5shd9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtuHbIvMkuHTHt7rCaLJ3mFX4tCPuqeb4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "226983170954-uffoqd2a8f7ss5cp38gv6u9ea2h5shd9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "226983170954-6b6g3dmhcfdjfv80s3v0gfimt6pmsd8e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.citycafeApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
