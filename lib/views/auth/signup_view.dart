@@ -19,7 +19,7 @@ class SignupView extends StatefulWidget {
 class _SignupViewState extends State<SignupView> {
   final SignupViewModel _viewModel = SignupViewModel();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  Map<String, String> userData = {};
+  Map<String, dynamic> userData = {};
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class _SignupViewState extends State<SignupView> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(height: height * 0.2),
+                    const SizedBox(height: 96.0),
                     Row(
                       children: [
                         Image.asset(
@@ -181,6 +181,50 @@ class _SignupViewState extends State<SignupView> {
                             ),
                           ],
                         ),
+                        const SizedBox(height: 16.0),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            const Text(
+                              'Your role',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 8.0,
+                            ),
+                            DropdownButtonFormField<int>(
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                fillColor: Color(0xfff3f3f4),
+                                filled: true,
+                              ),
+                              items: const[
+                                DropdownMenuItem(
+                                  value: 0,
+                                  child: Text('Student'),
+                                ),
+                                DropdownMenuItem(
+                                  value: 2,
+                                  child: Text('Teacher'),
+                                ),
+                              ],
+                              onChanged: (int? value) {},
+                              validator: (int? value) {
+                                if (value == null) {
+                                  return 'Please choose your role';
+                                }
+                                return null;
+                              },
+                              onSaved: (int? value) {
+                                userData['role'] = value;
+                              },
+
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                     const SizedBox(
@@ -190,25 +234,31 @@ class _SignupViewState extends State<SignupView> {
                       onTap: () async {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
-                          int chosenRole = await showDialog(context: context, builder: (context){
-                            return AlertDialog(
-                              content: Row(
-                                children: [
-
-                                ],
-                              ),
-                            );
-                          },);
+                          // int? chosenRole = await showDialog(
+                          //   context: context,
+                          //   barrierDismissible: false,
+                          //   builder: (context) {
+                          //     return AlertDialog(
+                          //       content: Row(
+                          //         children: [
+                          //           ElevatedButton(onPressed: (){Navigator.pop(context,2);}, child: const Text('Teacher'),),
+                          //           ElevatedButton(onPressed: (){Navigator.pop(context,0);}, child:const Text('Student'),),
+                          //         ],
+                          //       ),
+                          //     );
+                          //   },
+                          // );
+                          // print(chosenRole);
                           UserModel? user = await _viewModel.signup(
                             userData['email']!,
                             userData['password']!,
                             userData['username']!,
                             context,
-                            chosenRole,
+                            userData['role'],
                           );
-                          if(user != null && mounted){
-                            Provider.of<HomeViewModel>(context,listen: false).setUser = user;
-                             Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) =>const  HomeView()));
+                          if (user != null && mounted) {
+                            Provider.of<HomeViewModel>(context, listen: false).setUser = user;
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeView()));
                           }
                         }
                       },
