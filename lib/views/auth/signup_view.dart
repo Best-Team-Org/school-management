@@ -36,7 +36,7 @@ class _SignupViewState extends State<SignupView> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(height: height * 0.2),
+                    const SizedBox(height: 96.0),
                     Row(
                       children: [
                         Image.asset(
