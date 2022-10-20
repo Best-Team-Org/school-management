@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "226983170954-3npommjvantui7264qob1kdlma13avhj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.app",
+            "certificate_hash": "267017cea590b2c4e4beb0249d511d71122640b8"
+          }
+        },
+        {
+          "client_id": "226983170954-votfpk4ladk0ekgthftqg936ngkkejki.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.app",
+            "certificate_hash": "6297fbf0dc2cbf88a831e57ae3fae1fd12ae9160"
+          }
+        },
+        {
           "client_id": "226983170954-uffoqd2a8f7ss5cp38gv6u9ea2h5shd9.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -46,6 +62,42 @@
         "mobilesdk_app_id": "1:226983170954:android:b273c5e4f2965409832e73",
         "android_client_info": {
           "package_name": "com.example.citycafe_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "226983170954-uffoqd2a8f7ss5cp38gv6u9ea2h5shd9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtuHbIvMkuHTHt7rCaLJ3mFX4tCPuqeb4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "226983170954-uffoqd2a8f7ss5cp38gv6u9ea2h5shd9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "226983170954-6b6g3dmhcfdjfv80s3v0gfimt6pmsd8e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.citycafeApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:226983170954:android:f4c2b535f10a028e832e73",
+        "android_client_info": {
+          "package_name": "com.example.mystudentinltuc"
         }
       },
       "oauth_client": [

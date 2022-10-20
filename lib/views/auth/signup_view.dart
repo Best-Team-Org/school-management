@@ -234,7 +234,6 @@ class _SignupViewState extends State<SignupView> {
                       onTap: () async {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
-
                           // int? chosenRole = await showDialog(
                           //   context: context,
                           //   barrierDismissible: false,
