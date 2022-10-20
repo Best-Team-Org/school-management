@@ -190,11 +190,21 @@ class _SignupViewState extends State<SignupView> {
                       onTap: () async {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
+                          int chosenRole = await showDialog(context: context, builder: (context){
+                            return AlertDialog(
+                              content: Row(
+                                children: [
+
+                                ],
+                              ),
+                            );
+                          },);
                           UserModel? user = await _viewModel.signup(
                             userData['email']!,
                             userData['password']!,
                             userData['username']!,
                             context,
+                            chosenRole,
                           );
                           if(user != null && mounted){
                             Provider.of<HomeViewModel>(context,listen: false).setUser = user;

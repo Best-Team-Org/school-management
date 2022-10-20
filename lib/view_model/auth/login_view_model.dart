@@ -7,19 +7,23 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:semi_final_lab/models/user_model.dart';
 
 class LoginViewModel {
-
-  Future<UserModel?> login(String email, String password,BuildContext context) async {
+  Future<UserModel?> login(String email, String password, BuildContext context) async {
     UserModel? userModel;
-    showDialog(context: context, builder: (context){
-      return const Center(child: CircularProgressIndicator(),);
-    });
-    try{
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        });
+    try {
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
       User user = userCredential.user!;
-      DocumentSnapshot<Map<String, dynamic>> userData = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+      DocumentSnapshot<Map<String, dynamic>> userData =
+          await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
 
       userModel = UserModel(
         id: userData.id,
@@ -28,21 +32,19 @@ class LoginViewModel {
         role: userData.get('role'),
       );
       return userModel;
-    }on FirebaseAuthException catch(e){
+    } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message.toString())));
-    }
-    catch(e){
+    } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Something wrong, try again!')));
-    }
-    finally{
+    } finally {
       Navigator.pop(context);
     }
     return null;
   }
 
-  Future loginWithGoogle(BuildContext context)async{
+  Future loginWithGoogle(BuildContext context) async {
     UserModel? userModel;
-    try{
+    try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
       final OAuthCredential credential = GoogleAuthProvider.credential(
@@ -51,32 +53,33 @@ class LoginViewModel {
       );
       UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
       User user = userCredential.user!;
-      DocumentSnapshot<Map<String, dynamic>> userData = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
-      if(!userData.exists){
-        String? username = googleUser?.displayName;
+      String? username = googleUser?.displayName;
+      CollectionReference<Map<String, dynamic>> fireStore = FirebaseFirestore.instance.collection('users');
+      DocumentSnapshot<Map<String, dynamic>> userData =
+          await fireStore.doc(user.uid).get();
+      if (!userData.exists) {
         userModel = UserModel(
           id: user.uid,
           email: user.email,
           username: username,
           role: 0,
         );
-        await FirebaseFirestore.instance.collection('users').doc(user.uid).set(userModel.toJson());
+       await fireStore.doc(user.uid).set(userModel.toJson());
       }
+      userData =
+      await fireStore.doc(user.uid).get();
       userModel = UserModel(
-        id: userData.id,
+        id: user.uid,
         email: userData.get('email'),
-        username: userData.get('username'),
+        username:userData.get('username') ,
         role: userData.get('role'),
       );
       return userModel;
-    }on FirebaseAuthException catch(e){
+    } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message.toString())));
-    }catch(e){
+    } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Something wrong, try again!')));
     }
     return null;
-
   }
-
-
 }
