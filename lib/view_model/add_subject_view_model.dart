@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class AddSubjectViewModel with ChangeNotifier {
@@ -22,12 +21,17 @@ class AddSubjectViewModel with ChangeNotifier {
         'teacherId': teacherId,
         'startTime': startTime,
         'endTime': endTime,
-      }).then((_) {
+      }).then((value) async{
+        final studentsRef = await FirebaseFirestore.instance.collection('users').where('role', isEqualTo: 0).get();
+        for (var element in studentsRef.docs) {
+          FirebaseFirestore.instance.collection('marks').doc(value.id).collection('students').doc(element.id).set({
+            'result':0,
+          });
+        }
         Navigator.pop(context);
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Subject added')));
       });
-
     } catch (_) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Something wrong, try again!')));
     }

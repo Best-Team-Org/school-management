@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:semi_final_lab/models/user_model.dart';
 
 class SignupViewModel {
-  Future<UserModel?> signup(String email, String password, String username, BuildContext context) async {
+  Future<UserModel?> signup(String email, String password, String username, BuildContext context,int role) async {
     UserModel? userModel;
     showDialog(context: context, builder: (context){
       return const Center(child: CircularProgressIndicator(),);
@@ -19,7 +19,7 @@ class SignupViewModel {
         id: user.uid,
         email: email,
         username: username,
-        role: 0,
+        role: role,
       );
       await FirebaseFirestore.instance.collection('users').doc(user.uid).set(userModel.toJson());
 
