@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:semi_final_lab/view_model/home_view_model.dart';
 import 'package:semi_final_lab/views/auth/login_view.dart';
+import 'package:semi_final_lab/views/users_list_view.dart';
 
 import '../models/user_model.dart';
 import 'news_view.dart';
@@ -57,19 +58,14 @@ class _HomeViewState extends State<HomeView> {
                 );
               },
             ),
-            // ListTile(
-            //   title: const Text('News'),
-            //   leading: const Icon(Icons.newspaper),
-            //   onTap: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(
-            //           builder: (_) => NewsView(
-            //                 role: user!.role,
-            //               )),
-            //     );
-            //   },
-            // ),
+            if(user != null && user.role == 1)
+            ListTile(
+              title: const Text('Users List'),
+              leading: const Icon(Icons.people_alt),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) =>  UsersListView(currentUser: user!,)));
+              },
+            ),
           ],
         ),
       ),
