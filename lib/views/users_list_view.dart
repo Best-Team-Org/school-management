@@ -81,6 +81,10 @@ class UsersListView extends StatelessWidget {
                 );
               },
               separatorBuilder: (BuildContext context, int index) {
+                final user = users[index];
+                if(user.id == currentUser.id){
+                  return Container();
+                }
                 return const Divider();
               },
             );
