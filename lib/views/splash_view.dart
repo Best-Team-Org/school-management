@@ -19,7 +19,6 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async{
-
       User? user = FirebaseAuth.instance.currentUser;
       if (user == null) {
         Provider.of<HomeViewModel>(context, listen: false).setUser = null;
@@ -46,9 +45,16 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  Scaffold(
       body: Center(
-        child: Text('Loading...'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assets/icon/app_icon.png'),
+            const SizedBox(height: 32.0,),
+            const CircularProgressIndicator(),
+          ],
+        ),
       ),
     );
   }
