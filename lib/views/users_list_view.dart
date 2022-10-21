@@ -60,22 +60,24 @@ class UsersListView extends StatelessWidget {
                                   return AlertDialog(
                                     backgroundColor: Theme.of(context).canvasColor,
                                     title:  Text('Edit user',style: Theme.of(context).textTheme.headline2,),
-                                    content: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            _viewModel.makeAdmin(user.id);
-                                          },
-                                          child: const Text('Make Admin',style: TextStyle(fontSize: 24.0),),
-                                        ),
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            _viewModel.makeTeacher(user.id);
-                                          },
-                                          child: const Text('Make Teacher',style: TextStyle(fontSize: 24.0),),
-                                        ),
-                                      ],
+                                    content: FittedBox(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              _viewModel.makeAdmin(user.id);
+                                            },
+                                            child: const Text('Make Admin',style: TextStyle(fontSize: 24.0),),
+                                          ),
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              _viewModel.makeTeacher(user.id);
+                                            },
+                                            child: const Text('Make Teacher',style: TextStyle(fontSize: 24.0),),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   );
                                 });

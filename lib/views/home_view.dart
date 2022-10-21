@@ -141,9 +141,19 @@ class _HomeViewState extends State<HomeView> {
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primary,
               ),
-              child: Text(
-                'Semi Final App',
-                style: Theme.of(context).textTheme.headline1,
+              child: Stack(
+                children: [
+                  Text(
+                    'Semi Final App',
+                    style: Theme.of(context).textTheme.headline1,
+                  ),
+                  Positioned(right: 16.0,bottom:16.0,child: Row(
+                    children: [
+                      IconButton(onPressed: (){}, icon: const Icon(Icons.location_on_outlined),),
+                      IconButton(onPressed: (){}, icon: const Icon(Icons.location_on_outlined),),
+                    ],
+                  ),),
+                ],
               ),
             ),
             if (user != null && user.role == 1)
