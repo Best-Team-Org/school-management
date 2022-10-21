@@ -83,6 +83,7 @@ class _AddSubjectViewState extends State<AddSubjectView> {
                   Step(
                     title:  Text('Subject name',style: Theme.of(context).textTheme.headline2,),
                     content: TextField(
+                      style: Theme.of(context).textTheme.headline2,
                       controller: _nameController,
                     ),
                   ),
