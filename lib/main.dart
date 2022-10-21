@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:semi_final_lab/services/book_provider.dart';
+import 'package:semi_final_lab/services/themes.dart';
 import 'package:semi_final_lab/view_model/home_view_model.dart';
 import 'package:semi_final_lab/views/home_view.dart';
 
+import 'db/db_helper.dart';
 import 'view_model/splash_view_model.dart';
 import 'views/auth/login_view.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +19,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await DBHelper.initDb();
   runApp(
     MultiProvider(
       providers: [
@@ -24,6 +28,12 @@ Future<void> main() async {
         ),
         ChangeNotifierProvider(
           create: (_) => HomeViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => BookProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => Themes(),
         ),
       ],
       child: const MyApp(),
@@ -52,7 +62,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Consumer2<HomeViewModel, SplashViewModel>(
-      builder: (BuildContext context, HomeViewModel homeProvider, SplashViewModel splashProvider, _) {
+      builder: (BuildContext context, HomeViewModel homeProvider,
+          SplashViewModel splashProvider, _) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Semi Final',

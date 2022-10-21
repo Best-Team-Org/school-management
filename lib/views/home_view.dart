@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:semi_final_lab/screens/Book_view.dart';
 import 'package:semi_final_lab/view_model/home_view_model.dart';
 import 'package:semi_final_lab/views/auth/login_view.dart';
 
@@ -57,19 +58,16 @@ class _HomeViewState extends State<HomeView> {
                 );
               },
             ),
-            // ListTile(
-            //   title: const Text('News'),
-            //   leading: const Icon(Icons.newspaper),
-            //   onTap: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(
-            //           builder: (_) => NewsView(
-            //                 role: user!.role,
-            //               )),
-            //     );
-            //   },
-            // ),
+            ListTile(
+              title: const Text('Books'),
+              leading: const Icon(Icons.newspaper),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => Book_View()),
+                );
+              },
+            ),
           ],
         ),
       ),
