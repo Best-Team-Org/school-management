@@ -30,7 +30,6 @@ class _SplashViewState extends State<SplashView> {
           email: userInfo.get('email'),
           role: userInfo.get('role'),
         );
-
         if(mounted){
           Provider.of<HomeViewModel>(context, listen: false).setUser = userModel;
         }
