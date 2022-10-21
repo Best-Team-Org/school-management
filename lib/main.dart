@@ -52,7 +52,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Consumer2<HomeViewModel, SplashViewModel>(
-      builder: (BuildContext context, HomeViewModel homeProvider, SplashViewModel splashProvider, _) {
+      builder: (BuildContext context, HomeViewModel homeProvider,
+          SplashViewModel splashProvider, _) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Semi Final',
