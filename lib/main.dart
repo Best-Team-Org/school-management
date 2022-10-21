@@ -57,6 +57,7 @@ class _MyAppState extends State<MyApp> {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Semi Final',
+          color: CustomColors.primaryColor,
           themeMode: ThemeMode.dark,
           darkTheme: ThemeData(
             fontFamily: 'ChenileDeluxeTwo',
