@@ -15,7 +15,10 @@ class UsersListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Users List'),
+        title: const Text('Users List',style: TextStyle(
+          fontSize: 32.0,
+          letterSpacing: 2.0,
+        ),),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _viewModel.users,
@@ -35,8 +38,8 @@ class UsersListView extends StatelessWidget {
                   return Container();
                 }
                 return ListTile(
-                  title: Text('${user['username']}'),
-                  subtitle: Text('${user['email']}'),
+                  title: Text('${user['username']}',style: Theme.of(context).textTheme.headline2,),
+                  subtitle: Text('${user['email']}',style: Theme.of(context).textTheme.headline3,),
                   leading: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -44,7 +47,7 @@ class UsersListView extends StatelessWidget {
                           ? Icons.person
                           : user['role'] == 1
                               ? Icons.admin_panel_settings_outlined
-                              : Icons.account_box_outlined),
+                              : Icons.account_box_outlined,color: Colors.white,),
                     ],
                   ),
                   trailing: currentUser.role != 1
@@ -76,7 +79,7 @@ class UsersListView extends StatelessWidget {
                                   );
                                 });
                           },
-                          icon: const Icon(Icons.edit),
+                          icon: const Icon(Icons.edit,color: Colors.white,),
                         ),
                 );
               },
@@ -85,7 +88,7 @@ class UsersListView extends StatelessWidget {
                 if(user.id == currentUser.id){
                   return Container();
                 }
-                return const Divider();
+                return const Divider(color: Colors.white,);
               },
             );
           }

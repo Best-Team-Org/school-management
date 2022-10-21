@@ -63,7 +63,7 @@ class _LoginViewState extends State<LoginView> {
                       TextSpan(
                         text: 'uc Stu',
                         style: TextStyle(
-                          color: Colors.black,
+                          color: Colors.white,
                           fontSize: 32.0,
                         ),
                       ),
@@ -78,6 +78,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
               ),
+              const SizedBox(height: 16.0,),
               const Center(
                 child: Text(
                   'Sign in',
@@ -95,9 +96,11 @@ class _LoginViewState extends State<LoginView> {
                 height: 100.0,
               ),
               TextFormField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                style: Theme.of(context).textTheme.headline2,
+                decoration:  InputDecoration(
+                  border: const OutlineInputBorder(),
                   labelText: 'Email',
+                  labelStyle: Theme.of(context).textTheme.headline3,
                 ),
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
@@ -116,10 +119,11 @@ class _LoginViewState extends State<LoginView> {
               const SizedBox(
                 height: 16.0,
               ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+              TextFormField(style: Theme.of(context).textTheme.headline2,
+                decoration:  InputDecoration(
+                  border:const OutlineInputBorder(),
                   labelText: 'Password',
+                  labelStyle: Theme.of(context).textTheme.headline3,
                 ),
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
@@ -136,20 +140,22 @@ class _LoginViewState extends State<LoginView> {
               ),
               TextButton(
                 onPressed: () {
-                  /// TODO: forgot password screen
                   showDialog(
                       context: context,
                       builder: (context) {
                         String? email;
                         final GlobalKey<FormState> formKey = GlobalKey<FormState>();
                         return AlertDialog(
-                          title: const Text('Forget Password'),
+                          backgroundColor: Theme.of(context).canvasColor,
+                          title:  Text('Forget Password',style: Theme.of(context).textTheme.headline2,),
                           content: Form(
                             key: formKey,
                             child: TextFormField(
-                              decoration: const InputDecoration(
+                            style: Theme.of(context).textTheme.headline3,
+                              decoration:  InputDecoration(
                                 labelText: 'Enter your email',
-                                border: OutlineInputBorder(),
+                                labelStyle: Theme.of(context).textTheme.headline3,
+                                border:const OutlineInputBorder(),
                               ),
                               validator: (String? value) {
                                 if (value == null || value.isEmpty) {
@@ -172,7 +178,7 @@ class _LoginViewState extends State<LoginView> {
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                child: const Text('Cancel')),
+                                child: const Text('Cancel',style: TextStyle(fontSize: 24.0),)),
                             ElevatedButton(
                                 onPressed: () async {
                                   if (formKey.currentState!.validate()) {
@@ -184,7 +190,7 @@ class _LoginViewState extends State<LoginView> {
                                     );
                                   }
                                 },
-                                child: const Text('Send'),),
+                                child: const Text('Send',style: TextStyle(fontSize: 24.0),),),
                           ],
                         );
                       });
@@ -194,6 +200,7 @@ class _LoginViewState extends State<LoginView> {
                   style: TextStyle(
                     color: CustomColors.primaryColor,
                     fontStyle: FontStyle.italic,
+                    fontSize: 26.0,
                   ),
                 ),
               ),
@@ -202,7 +209,7 @@ class _LoginViewState extends State<LoginView> {
                   backgroundColor: CustomColors.primaryColor,
                   fixedSize: const Size(double.infinity, 50.0),
                 ),
-                child: const Text('Login'),
+                child: const Text('Login',style: TextStyle(fontSize: 32.0,),),
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
@@ -217,7 +224,7 @@ class _LoginViewState extends State<LoginView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  const Text('Does not have account?'),
+                  const Text('Does not have account?',style: TextStyle(color: Colors.white,fontSize: 24.0,),),
                   TextButton(
                     child: const Text(
                       'Sign up',
@@ -241,15 +248,17 @@ class _LoginViewState extends State<LoginView> {
                   Expanded(
                     child: Divider(
                       thickness: 4.0,
+                        color: Colors.white,
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text('Or Login With'),
+                    child: Text('Or Login With',style: TextStyle(color: Colors.white,fontSize: 24.0,),),
                   ),
                   Expanded(
                     child: Divider(
                       thickness: 4.0,
+                      color: Colors.white,
                     ),
                   ),
                 ],

@@ -8,12 +8,12 @@ import 'package:semi_final_lab/view_model/add_subject_view_model.dart';
 import 'package:semi_final_lab/view_model/home_view_model.dart';
 import 'package:semi_final_lab/view_model/library_view_model.dart';
 import 'package:semi_final_lab/views/auth/login_view.dart';
+import 'package:semi_final_lab/views/subjects_view.dart';
 import 'package:semi_final_lab/views/users_list_view.dart';
 import 'package:gradient_borders/gradient_borders.dart';
 import '../models/user_model.dart';
 import 'add_subject_view.dart';
 import 'news/Read_News.dart';
-import 'news_view.dart';
 import 'library_view.dart';
 
 import 'news/add_news.dart';
@@ -33,117 +33,151 @@ class _HomeViewState extends State<HomeView> {
     UserModel? user = Provider.of<HomeViewModel>(context).user;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text(
+          'Home',
+          style: TextStyle(
+            fontSize: 32.0,
+            letterSpacing: 2.0,
+          ),
+        ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          StreamBuilder(
-            stream: news.snapshots(),
-            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (snapshot.hasData) {
-                List newsList = snapshot.data!.docs;
-                return CarouselSlider.builder(
-                  itemCount: newsList.length,
-                  itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
-                    return Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        image: const DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage('assets/images/news_bg2.jpg'),
-                        ),
-                        border:  GradientBoxBorder(
-                          gradient: LinearGradient(
-                            colors: [
-                              Color(int.parse(newsList[itemIndex]['color'])),
-                              Color(int.parse(newsList[itemIndex]['color'])).withOpacity(0.1),
-                            ],
+      body: DecoratedBox(
+        decoration: const BoxDecoration(
+            // image: DecorationImage(
+            //   fit: BoxFit.cover,
+            //   opacity: 0.4,
+            //   image: AssetImage('assets/images/bg3.jpg'),
+            // ),
+            ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            StreamBuilder(
+              stream: news.snapshots(),
+              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (snapshot.hasData) {
+                  List newsList = snapshot.data!.docs;
+                  return CarouselSlider.builder(
+                    itemCount: newsList.length,
+                    itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
+                      return Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                          image: const DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage('assets/images/news_bg4.jpg'),
                           ),
-                          width: 4.0,
+                          border: GradientBoxBorder(
+                            gradient: LinearGradient(
+                              colors: [
+                                Color(int.parse(newsList[itemIndex]['color'])),
+                                Color(int.parse(newsList[itemIndex]['color'])).withOpacity(0.1),
+                              ],
+                            ),
+                            width: 4.0,
+                          ),
+                          borderRadius: BorderRadius.circular(32.0),
                         ),
-                        borderRadius: BorderRadius.circular(32.0),
-                      ),
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              newsList[itemIndex]['title'],
-                              style: GoogleFonts.amiri(
-                                textStyle:const TextStyle(
-                                  fontSize: 46.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                newsList[itemIndex]['title'],
+                                style: GoogleFonts.amiri(
+                                  textStyle: const TextStyle(
+                                    fontSize: 46.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Text(newsList[itemIndex]['subtitle'],
-                              style: GoogleFonts.amiri(
-                                textStyle:const TextStyle(
-                                  fontSize: 32.0,
-                                  // fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                              Text(
+                                newsList[itemIndex]['subtitle'],
+                                style: GoogleFonts.amiri(
+                                  textStyle: const TextStyle(
+                                    fontSize: 32.0,
+                                    // fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),),
-                          ],
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                  options: CarouselOptions(
-                    height: 300,
-                    aspectRatio: 16 / 9,
-                    viewportFraction: 0.8,
-                    initialPage: 0,
-                    enableInfiniteScroll: true,
-                    reverse: false,
-                    autoPlay: true,
-                    autoPlayInterval: const Duration(seconds: 3),
-                    autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    enlargeCenterPage: true,
-                    scrollDirection: Axis.horizontal,
-                  ),
+                      );
+                    },
+                    options: CarouselOptions(
+                      height: 300,
+                      aspectRatio: 16 / 9,
+                      viewportFraction: 0.8,
+                      initialPage: 0,
+                      enableInfiniteScroll: true,
+                      reverse: false,
+                      autoPlay: true,
+                      autoPlayInterval: const Duration(seconds: 3),
+                      autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      enlargeCenterPage: true,
+                      scrollDirection: Axis.horizontal,
+                    ),
+                  );
+                }
+                return const Center(
+                  child: Text('Check your connection'),
                 );
-              }
-              return const Center(
-                child: Text('Check your connection'),
-              );
-            },
-          ),
-        ],
+              },
+            ),
+          ],
+        ),
       ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
+            DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Theme.of(context).colorScheme.primary,
               ),
-              child: Text('Semi Final App'),
+              child: Text(
+                'Semi Final App',
+                style: Theme.of(context).textTheme.headline1,
+              ),
             ),
+            if (user != null && user.role == 1)
+              ListTile(
+                title: Text(
+                  'Users List',
+                  style: Theme.of(context).textTheme.headline2!,
+                ),
+                leading: const Icon(
+                  Icons.people_alt,
+                  color: Colors.white,
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => UsersListView(
+                                currentUser: user,
+                              )));
+                },
+              ),
             ListTile(
-              title: const Text('Logout'),
-              leading: const Icon(Icons.logout),
-              onTap: () {
-                FirebaseAuth.instance.signOut();
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const LoginView()),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text('Library'),
-              leading: const Icon(Icons.library_books),
+              title: Text(
+                'Library',
+                style: Theme.of(context).textTheme.headline2!,
+              ),
+              leading: const Icon(
+                Icons.library_books,
+                color: Colors.white,
+              ),
               onTap: () {
                 Navigator.push(
                     context,
@@ -156,21 +190,14 @@ class _HomeViewState extends State<HomeView> {
             ),
             if (user != null && user.role == 1)
               ListTile(
-                title: const Text('Users List'),
-                leading: const Icon(Icons.people_alt),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => UsersListView(
-                                currentUser: user,
-                              )));
-                },
-              ),
-            if (user != null && user.role == 1)
-              ListTile(
-                title: const Text('Add Subject'),
-                leading: const Icon(Icons.add),
+                title: Text(
+                  'Add Subject',
+                  style: Theme.of(context).textTheme.headline2!,
+                ),
+                leading: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
                 onTap: () {
                   Navigator.push(
                       context,
@@ -181,22 +208,70 @@ class _HomeViewState extends State<HomeView> {
                               )));
                 },
               ),
+            ListTile(
+              title: Text(
+                'Subjects',
+                style: Theme.of(context).textTheme.headline2!,
+              ),
+              leading: const Icon(
+                Icons.list_alt,
+                color: Colors.white,
+              ),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => ChangeNotifierProvider<LibraryViewModel>(
+                              create: (_) => LibraryViewModel(),
+                              child: const SubjectsView(),
+                            )));
+              },
+            ),
             if (user != null && user.role == 1)
               ListTile(
-                title: const Text('Add news'),
-                leading: const Icon(Icons.newspaper),
+                title: Text(
+                  'Add news',
+                  style: Theme.of(context).textTheme.headline2!,
+                ),
+                leading: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (_) => const AddNews()));
                 },
               ),
             if (user != null && user.role == 1)
               ListTile(
-                title: const Text('Edit news'),
-                leading: const Icon(Icons.edit),
+                title: Text(
+                  'Edit news',
+                  style: Theme.of(context).textTheme.headline2!,
+                ),
+                leading: const Icon(
+                  Icons.edit,
+                  color: Colors.white,
+                ),
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => ReadDataNews()));
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => const ReadDataNews()));
                 },
               ),
+            ListTile(
+              title: const Text(
+                'Logout',
+                style: TextStyle(fontSize: 24.0, color: Colors.red),
+              ),
+              leading: const Icon(
+                Icons.logout,
+                color: Colors.red,
+              ),
+              onTap: () {
+                FirebaseAuth.instance.signOut();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (_) => const LoginView()),
+                );
+              },
+            ),
           ],
         ),
       ),

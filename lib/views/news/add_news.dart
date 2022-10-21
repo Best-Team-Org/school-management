@@ -19,24 +19,28 @@ class _AddNewsState extends State<AddNews> {
     TextEditingController newsSubtitleController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add News'),
+        title: const Text('Add News',style:  TextStyle(
+          fontSize: 32.0,
+          letterSpacing: 2.0,
+        ),),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
-          const Center(
-            child: Text("What's new ?"),
+           Center(
+            child: Text("What's new ?",style: Theme.of(context).textTheme.headline1,),
           ),
           Padding(
             padding: const EdgeInsets.all(20),
             child: TextField(
               controller: newsTitleController,
-              decoration: const InputDecoration(
+              style: Theme.of(context).textTheme.headline2,
+              decoration:  InputDecoration(
                 hintText: "Title",
+                hintStyle: Theme.of(context).textTheme.headline3,
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
+                  borderRadius: BorderRadius.circular(16.0),
+                  borderSide:const BorderSide(color: Colors.white),
                 ),
               ),
             ),
@@ -45,12 +49,13 @@ class _AddNewsState extends State<AddNews> {
             padding: const EdgeInsets.all(20),
             child: TextField(
               controller: newsSubtitleController,
-              decoration: const InputDecoration(
-                hintText: "subtitle",
+              style: Theme.of(context).textTheme.headline2,
+              decoration:  InputDecoration(
+                hintText: "Subtitle",
+                hintStyle: Theme.of(context).textTheme.headline3,
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
+                  borderRadius: BorderRadius.circular(16.0),
+                  borderSide:const BorderSide(color: Colors.white),
                 ),
               ),
             ),
@@ -58,6 +63,7 @@ class _AddNewsState extends State<AddNews> {
           Padding(
             padding: const EdgeInsets.all(20),
             child: DropdownButtonFormField<String>(
+              style: Theme.of(context).textTheme.headline2,
               items: const[
                 DropdownMenuItem(
                   value: '0xFFFF0000',
@@ -75,12 +81,12 @@ class _AddNewsState extends State<AddNews> {
               onChanged: (String? value) {
                 importance = value;
               },
-              decoration: const InputDecoration(
+              decoration:  InputDecoration(
                 hintText: "Importance",
+                hintStyle: Theme.of(context).textTheme.headline3,
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
+                  borderRadius: BorderRadius.circular(16.0),
+                  borderSide:const BorderSide(color: Colors.white),
                 ),
               ),
             ),
@@ -97,7 +103,7 @@ class _AddNewsState extends State<AddNews> {
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Added successfully")));
             },
-            child: const Text("Add news"),
+            child: const Text("Add news",style: TextStyle(fontSize: 32.0,),),
           ),
         ],
       ),

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../res/colors.dart';
 import '../view_model/add_subject_view_model.dart';
 
 class AddSubjectView extends StatefulWidget {
@@ -33,7 +34,10 @@ class _AddSubjectViewState extends State<AddSubjectView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Subject'),
+        title: const Text('Add Subject',style: TextStyle(
+          fontSize: 32.0,
+          letterSpacing: 2.0,
+        ),),
       ),
       body: Consumer<AddSubjectViewModel>(
         builder: (BuildContext context, AddSubjectViewModel provider, _) {
@@ -49,12 +53,12 @@ class _AddSubjectViewState extends State<AddSubjectView> {
                         if (details.stepIndex != stepsLength - 1)
                           ElevatedButton(
                             onPressed: details.onStepContinue,
-                            child: const Text('NEXT'),
+                            child: const Text('NEXT',style: TextStyle(fontSize: 24.0),),
                           ),
                         if (details.stepIndex != 0)
                           TextButton(
                             onPressed: details.onStepCancel,
-                            child: const Text('PREVIOUS'),
+                            child: const Text('PREVIOUS',style: TextStyle(fontSize: 22.0),),
                           ),
                       ],
                     ),
@@ -77,13 +81,13 @@ class _AddSubjectViewState extends State<AddSubjectView> {
                 },
                 steps: <Step>[
                   Step(
-                    title: const Text('Subject name'),
+                    title:  Text('Subject name',style: Theme.of(context).textTheme.headline2,),
                     content: TextField(
                       controller: _nameController,
                     ),
                   ),
                   Step(
-                    title: const Text('Teacher name'),
+                    title:  Text('Teacher name',style: Theme.of(context).textTheme.headline2,),
                     content: ElevatedButton(
                       onPressed: () {
                         showBottomSheet(
@@ -113,8 +117,9 @@ class _AddSubjectViewState extends State<AddSubjectView> {
                                       itemBuilder: (BuildContext context, int index) {
                                         final teacher = teachers[index];
                                         return RadioListTile(
-                                          title: Text('${teacher['username']}'),
-                                          subtitle: Text('${teacher['email']}'),
+                                          title: Text('${teacher['username']}',style: Theme.of(context).textTheme.headline2,),
+                                          subtitle: Text('${teacher['email']}',style: Theme.of(context).textTheme.headline3,),
+                                          activeColor: CustomColors.primaryColor,
                                           value: teacher.id.toString(),
                                           groupValue: Provider.of<AddSubjectViewModel>(context).selectedTeacher,
                                           onChanged: (String? value) {
@@ -124,7 +129,7 @@ class _AddSubjectViewState extends State<AddSubjectView> {
                                         );
                                       },
                                       separatorBuilder: (BuildContext context, int index) {
-                                        return const Divider();
+                                        return const Divider(color: Colors.white,);
                                       },
                                     );
                                   }
@@ -139,13 +144,13 @@ class _AddSubjectViewState extends State<AddSubjectView> {
                     ),
                   ),
                   Step(
-                      title: const Text('Subject time'),
+                      title:  Text('Subject time',style: Theme.of(context).textTheme.headline2,),
                       content: Column(
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              const Text('Start time'),
+                               Text('Start time',style: Theme.of(context).textTheme.headline3,),
                               ElevatedButton(
                                 onPressed: () async {
                                   TimeOfDay? time = await showTimePicker(
@@ -157,7 +162,7 @@ class _AddSubjectViewState extends State<AddSubjectView> {
                                   }
                                 },
                                 child: Text(
-                                  provider.startTime != null ? provider.startTime!.format(context) : '00:00',
+                                  provider.startTime != null ? provider.startTime!.format(context) : '00:00',style: Theme.of(context).textTheme.headline3,
                                 ),
                               ),
                             ],
@@ -165,7 +170,7 @@ class _AddSubjectViewState extends State<AddSubjectView> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              const Text('End time'),
+                               Text('End time',style: Theme.of(context).textTheme.headline3,),
                               ElevatedButton(
                                 onPressed: () async {
                                   TimeOfDay? time = await showTimePicker(
@@ -177,7 +182,7 @@ class _AddSubjectViewState extends State<AddSubjectView> {
                                   }
                                 },
                                 child: Text(
-                                  provider.endTime != null ? provider.endTime!.format(context) : '00:00',
+                                  provider.endTime != null ? provider.endTime!.format(context) : '00:00',style: Theme.of(context).textTheme.headline3,
                                 ),
                               ),
                             ],

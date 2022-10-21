@@ -35,16 +35,20 @@ class _ReadDataNewsState extends State<ReadDataNews> {
               children: [
                 TextField(
                   controller: titleController,
-                  decoration: const InputDecoration(labelText: 'Title'),
+                  style: Theme.of(context).textTheme.headline2,
+                  decoration: InputDecoration(
+                    labelText: 'Title',
+                    labelStyle: Theme.of(context).textTheme.headline2,
+                  ),
                 ),
                 TextField(
                   keyboardType: const TextInputType.numberWithOptions(decimal: true),
                   controller: subtitleController,
-                  decoration: const InputDecoration(
-                    labelText: 'Subtitle',
-                  ),
+                  style: Theme.of(context).textTheme.headline2,
+                  decoration: InputDecoration(labelText: 'Subtitle', labelStyle: Theme.of(context).textTheme.headline2,),
                 ),
                 DropdownButtonFormField<String>(
+                  style: Theme.of(context).textTheme.headline2,
                   items: const [
                     DropdownMenuItem(
                       value: '0xFFFF0000',
@@ -62,28 +66,27 @@ class _ReadDataNewsState extends State<ReadDataNews> {
                   onChanged: (String? value) {
                     importance = value;
                   },
-                  decoration: const InputDecoration(
+                  decoration:  InputDecoration(
                     labelText: 'Importance',
+                       labelStyle: Theme.of(context).textTheme.headline2,
                   ),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 ElevatedButton(
-                  child: const Text('Update'),
+                  child: const Text('Update',style: TextStyle(fontSize: 32.0,),),
                   onPressed: () async {
                     final String title = titleController.text;
                     final String subtitle = subtitleController.text;
-                    if (subtitle != null) {
-                      await news.doc(documentSnapshot!.id).update({
-                        "title": title,
-                        "subtitle": subtitle,
-                        "color": importance,
-                      });
-                      titleController.text = '';
-                      subtitleController.text = '';
-                      Navigator.of(context).pop();
-                    }
+                    await news.doc(documentSnapshot!.id).update({
+                      "title": title,
+                      "subtitle": subtitle,
+                      "color": importance,
+                    });
+                    titleController.text = '';
+                    subtitleController.text = '';
+                    Navigator.of(context).pop();
                   },
                 )
               ],
@@ -96,41 +99,57 @@ class _ReadDataNewsState extends State<ReadDataNews> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: StreamBuilder(
-        stream: news.snapshots(),
-        builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-          if (streamSnapshot.hasData) {
-            return ListView.builder(
-              itemCount: streamSnapshot.data!.docs.length,
-              itemBuilder: (context, index) {
-                final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
-                final docId = streamSnapshot.data!.docs[index].id;
-                return Card(
-                  child: ListTile(
-                    title: Text(documentSnapshot['title']),
-                    subtitle: Text(documentSnapshot['subtitle']),
-                    trailing: IconButton(
-                      onPressed: () {
-                        FirebaseFirestore.instance.collection('News').doc(docId).delete();
-                      },
-                      icon: const Icon(
-                        Icons.delete,
-                        color: Colors.red,
+      appBar: AppBar(
+          title: const Text(
+        'Edit News',
+        style: TextStyle(
+          fontSize: 32.0,
+          letterSpacing: 2.0,
+        ),
+      )),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: StreamBuilder(
+          stream: news.snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+            if (streamSnapshot.hasData) {
+              return ListView.builder(
+                itemCount: streamSnapshot.data!.docs.length,
+                itemBuilder: (context, index) {
+                  final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
+                  final docId = streamSnapshot.data!.docs[index].id;
+                  return Card(
+                    child: ListTile(
+                      title: Text(
+                        documentSnapshot['title'],
+                        style: Theme.of(context).textTheme.headline4,
                       ),
+                      subtitle: Text(
+                        documentSnapshot['subtitle'],
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
+                      trailing: IconButton(
+                        onPressed: () {
+                          FirebaseFirestore.instance.collection('News').doc(docId).delete();
+                        },
+                        icon: const Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        ),
+                      ),
+                      onTap: () {
+                        _update(documentSnapshot);
+                      },
                     ),
-                    onTap: () {
-                      _update(documentSnapshot);
-                    },
-                  ),
-                );
-              },
+                  );
+                },
+              );
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
             );
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+          },
+        ),
       ),
     );
   }

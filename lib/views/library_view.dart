@@ -30,7 +30,10 @@ class _LibraryViewState extends State<LibraryView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Library'),
+        title: const Text('Library',style: TextStyle(
+          fontSize: 32.0,
+          letterSpacing: 2.0,
+        ),),
       ),
       body: Consumer<LibraryViewModel>(
         builder: (BuildContext context, LibraryViewModel provider, _) {
@@ -43,6 +46,7 @@ class _LibraryViewState extends State<LibraryView> {
                   children: [
                     TextField(
                       controller: _searchController,
+                      style: Theme.of(context).textTheme.headline2,
                       decoration: InputDecoration(
                         suffixIcon: IconButton(
                           onPressed: () {
@@ -51,7 +55,7 @@ class _LibraryViewState extends State<LibraryView> {
                             }
                             provider.getBooks(_searchController.text);
                           },
-                          icon: const Icon(Icons.search),
+                          icon:  Icon(Icons.search,color: Theme.of(context).colorScheme.primary,),
                         ),
                       ),
                     ),
@@ -101,7 +105,7 @@ class _LibraryViewState extends State<LibraryView> {
                                               book['volumeInfo']['title']??'No title',
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 2,
-                                              style: Theme.of(context).textTheme.headline6,
+                                              style:const TextStyle(fontSize: 26.0,),
                                             ),
                                             const SizedBox(
                                               height: 10.0,
@@ -110,7 +114,7 @@ class _LibraryViewState extends State<LibraryView> {
                                               book['volumeInfo']['subtitle']??'No subtitle',
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 3,
-                                              style: Theme.of(context).textTheme.bodyText2,
+                                              style:const TextStyle(fontSize: 22.0,),
                                             ),
                                           ],
                                         ),
@@ -121,8 +125,8 @@ class _LibraryViewState extends State<LibraryView> {
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.end,
                                             children: [
-                                              Text('${book['volumeInfo']['pageCount']??'00'} page'),
-                                              Text(book['volumeInfo']['language']??'xx'),
+                                              Text('${book['volumeInfo']['pageCount']??'00'} page',style:const TextStyle(fontSize: 18.0,),),
+                                              Text(book['volumeInfo']['language']??'xx',style:const TextStyle(fontSize: 18.0,),),
                                             ],
                                           ),
                                         ),
