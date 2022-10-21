@@ -58,7 +58,8 @@ class UsersListView extends StatelessWidget {
                                 context: context,
                                 builder: (context) {
                                   return AlertDialog(
-                                    title: const Text('Edit user'),
+                                    backgroundColor: Theme.of(context).canvasColor,
+                                    title:  Text('Edit user',style: Theme.of(context).textTheme.headline2,),
                                     content: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
@@ -66,13 +67,13 @@ class UsersListView extends StatelessWidget {
                                           onPressed: () {
                                             _viewModel.makeAdmin(user.id);
                                           },
-                                          child: const Text('Make Admin'),
+                                          child: const Text('Make Admin',style: TextStyle(fontSize: 24.0),),
                                         ),
                                         ElevatedButton(
                                           onPressed: () {
                                             _viewModel.makeTeacher(user.id);
                                           },
-                                          child: const Text('Make Teacher'),
+                                          child: const Text('Make Teacher',style: TextStyle(fontSize: 24.0),),
                                         ),
                                       ],
                                     ),

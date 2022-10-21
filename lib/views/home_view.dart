@@ -41,54 +41,47 @@ class _HomeViewState extends State<HomeView> {
           ),
         ),
       ),
-      body: DecoratedBox(
-        decoration: const BoxDecoration(
-            // image: DecorationImage(
-            //   fit: BoxFit.cover,
-            //   opacity: 0.4,
-            //   image: AssetImage('assets/images/bg3.jpg'),
-            // ),
-            ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            StreamBuilder(
-              stream: news.snapshots(),
-              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                if (snapshot.hasData) {
-                  List newsList = snapshot.data!.docs;
-                  return CarouselSlider.builder(
-                    itemCount: newsList.length,
-                    itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
-                      return Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                          image: const DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage('assets/images/news_bg4.jpg'),
-                          ),
-                          border: GradientBoxBorder(
-                            gradient: LinearGradient(
-                              colors: [
-                                Color(int.parse(newsList[itemIndex]['color'])),
-                                Color(int.parse(newsList[itemIndex]['color'])).withOpacity(0.1),
-                              ],
-                            ),
-                            width: 4.0,
-                          ),
-                          borderRadius: BorderRadius.circular(32.0),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          StreamBuilder(
+            stream: news.snapshots(),
+            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (snapshot.hasData) {
+                List newsList = snapshot.data!.docs;
+                return CarouselSlider.builder(
+                  itemCount: newsList.length,
+                  itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
+                    return Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                        image: const DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage('assets/images/news_bg4.jpg'),
                         ),
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
+                        border: GradientBoxBorder(
+                          gradient: LinearGradient(
+                            colors: [
+                              Color(int.parse(newsList[itemIndex]['color'])),
+                              Color(int.parse(newsList[itemIndex]['color'])).withOpacity(0.1),
+                            ],
+                          ),
+                          width: 4.0,
+                        ),
+                        borderRadius: BorderRadius.circular(32.0),
+                      ),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            FittedBox(
+                              child: Text(
                                 newsList[itemIndex]['title'],
                                 style: GoogleFonts.amiri(
                                   textStyle: const TextStyle(
@@ -97,45 +90,48 @@ class _HomeViewState extends State<HomeView> {
                                     color: Colors.white,
                                   ),
                                 ),
+                                maxLines: 1,
                               ),
-                              Text(
-                                newsList[itemIndex]['subtitle'],
-                                style: GoogleFonts.amiri(
-                                  textStyle: const TextStyle(
-                                    fontSize: 32.0,
-                                    // fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
+                            ),
+                            Text(
+                              newsList[itemIndex]['subtitle'],
+                              style: GoogleFonts.amiri(
+                                textStyle: const TextStyle(
+                                  fontSize: 32.0,
+                                  // fontWeight: FontWeight.bold,
+                                  color: Colors.white,
                                 ),
                               ),
-                            ],
-                          ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
                         ),
-                      );
-                    },
-                    options: CarouselOptions(
-                      height: 300,
-                      aspectRatio: 16 / 9,
-                      viewportFraction: 0.8,
-                      initialPage: 0,
-                      enableInfiniteScroll: true,
-                      reverse: false,
-                      autoPlay: true,
-                      autoPlayInterval: const Duration(seconds: 3),
-                      autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                      autoPlayCurve: Curves.fastOutSlowIn,
-                      enlargeCenterPage: true,
-                      scrollDirection: Axis.horizontal,
-                    ),
-                  );
-                }
-                return const Center(
-                  child: Text('Check your connection'),
+                      ),
+                    );
+                  },
+                  options: CarouselOptions(
+                    height: 300,
+                    aspectRatio: 16 / 9,
+                    viewportFraction: 0.8,
+                    initialPage: 0,
+                    enableInfiniteScroll: true,
+                    reverse: false,
+                    autoPlay: true,
+                    autoPlayInterval: const Duration(seconds: 3),
+                    autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enlargeCenterPage: true,
+                    scrollDirection: Axis.horizontal,
+                  ),
                 );
-              },
-            ),
-          ],
-        ),
+              }
+              return const Center(
+                child: Text('Check your connection'),
+              );
+            },
+          ),
+        ],
       ),
       drawer: Drawer(
         child: ListView(
