@@ -11,6 +11,7 @@ import 'package:semi_final_lab/views/auth/login_view.dart';
 import 'package:semi_final_lab/views/subjects_view.dart';
 import 'package:semi_final_lab/views/users_list_view.dart';
 import 'package:gradient_borders/gradient_borders.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../models/user_model.dart';
 import 'add_subject_view.dart';
 import 'news/Read_News.dart';
@@ -26,7 +27,8 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final CollectionReference news = FirebaseFirestore.instance.collection("News");
+  final CollectionReference news =
+      FirebaseFirestore.instance.collection("News");
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,8 @@ class _HomeViewState extends State<HomeView> {
         children: [
           StreamBuilder(
             stream: news.snapshots(),
-            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
                   child: CircularProgressIndicator(),
@@ -56,7 +59,8 @@ class _HomeViewState extends State<HomeView> {
                 List newsList = snapshot.data!.docs;
                 return CarouselSlider.builder(
                   itemCount: newsList.length,
-                  itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
+                  itemBuilder:
+                      (BuildContext context, int itemIndex, int pageViewIndex) {
                     return Container(
                       width: double.infinity,
                       padding: const EdgeInsets.all(8.0),
@@ -69,7 +73,8 @@ class _HomeViewState extends State<HomeView> {
                           gradient: LinearGradient(
                             colors: [
                               Color(int.parse(newsList[itemIndex]['color'])),
-                              Color(int.parse(newsList[itemIndex]['color'])).withOpacity(0.1),
+                              Color(int.parse(newsList[itemIndex]['color']))
+                                  .withOpacity(0.1),
                             ],
                           ),
                           width: 4.0,
@@ -119,7 +124,8 @@ class _HomeViewState extends State<HomeView> {
                     reverse: false,
                     autoPlay: true,
                     autoPlayInterval: const Duration(seconds: 3),
-                    autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                    autoPlayAnimationDuration:
+                        const Duration(milliseconds: 800),
                     autoPlayCurve: Curves.fastOutSlowIn,
                     enlargeCenterPage: true,
                     scrollDirection: Axis.horizontal,
@@ -147,12 +153,40 @@ class _HomeViewState extends State<HomeView> {
                     'Semi Final App',
                     style: Theme.of(context).textTheme.headline1,
                   ),
-                  Positioned(right: 16.0,bottom:16.0,child: Row(
-                    children: [
-                      IconButton(onPressed: (){}, icon: const Icon(Icons.location_on_outlined),),
-                      IconButton(onPressed: (){}, icon: const Icon(Icons.location_on_outlined),),
-                    ],
-                  ),),
+                  Positioned(
+                    right: 0.0,
+                    bottom: 0.0,
+                    child: Row(
+                      children: [
+                        IconButton(
+                          onPressed: () async {
+                            Uri url = Uri.parse(
+                                'https://www.google.com/maps/place/%D9%83%D9%84%D9%8A%D8%A9+%D9%84%D9%88%D9%85%D9%8A%D9%86%D9%88%D8%B3+%D8%A7%D9%84%D8%AC%D8%A7%D9%85%D8%B9%D9%8A%D8%A9+%D8%A7%D9%84%D8%AA%D9%82%D9%86%D9%8A%D8%A9+-+(Luminus+Technical+University+College+(LTUC%E2%80%AD/@31.897932,35.8731971,17z/data=!4m6!3m5!1s0x151ca7e4aee722d5:0x8693a9183825010b!8m2!3d31.897932!4d35.8688197!15sCiRMdW1pbnVzIHRlY2huaWNhbCBVbml2ZXJzaXR5IGNvbGxlZ2WSARR0ZWNobmljYWxfdW5pdmVyc2l0eeABAA?shorturl=1');
+                            if (!await launchUrl(url)) {
+                              throw 'Could not launch $url';
+                            }
+                          },
+                          icon: const Icon(
+                            Icons.location_on_outlined,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(width: 16.0),
+                        IconButton(
+                          onPressed: () async {
+                            Uri url = Uri.parse('http://www.ltuc.com/');
+                            if (!await launchUrl(url)) {
+                              throw 'Could not launch $url';
+                            }
+                          },
+                          icon: const Icon(
+                            Icons.web_outlined,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -188,7 +222,8 @@ class _HomeViewState extends State<HomeView> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (_) => ChangeNotifierProvider<LibraryViewModel>(
+                        builder: (_) =>
+                            ChangeNotifierProvider<LibraryViewModel>(
                               create: (_) => LibraryViewModel(),
                               child: const LibraryView(),
                             )));
@@ -227,7 +262,8 @@ class _HomeViewState extends State<HomeView> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (_) => ChangeNotifierProvider<LibraryViewModel>(
+                        builder: (_) =>
+                            ChangeNotifierProvider<LibraryViewModel>(
                               create: (_) => LibraryViewModel(),
                               child: const SubjectsView(),
                             )));
@@ -244,7 +280,8 @@ class _HomeViewState extends State<HomeView> {
                   color: Colors.white,
                 ),
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => const AddNews()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const AddNews()));
                 },
               ),
             if (user != null && user.role == 1)
@@ -258,7 +295,8 @@ class _HomeViewState extends State<HomeView> {
                   color: Colors.white,
                 ),
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => const ReadDataNews()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const ReadDataNews()));
                 },
               ),
             ListTile(
