@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.semi_final_lab">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="semi_final_lab"
         android:name="${applicationName}"
