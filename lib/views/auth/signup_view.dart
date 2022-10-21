@@ -59,7 +59,7 @@ class _SignupViewState extends State<SignupView> {
                               children: [
                                 TextSpan(
                                   text: 'uc Stu',
-                                  style: TextStyle(color: Colors.black, fontSize: 30),
+                                  style: TextStyle(color: Colors.white, fontSize: 30),
                                 ),
                                 TextSpan(
                                   text: 'dents',
@@ -81,16 +81,19 @@ class _SignupViewState extends State<SignupView> {
                               'Username',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 16.0,
+                                fontSize: 20.0,
+                                color: Colors.white,
+                                letterSpacing: 2.0,
                               ),
                             ),
                             const SizedBox(
                               height: 8.0,
                             ),
                             TextFormField(
+                              style: Theme.of(context).textTheme.headline3,
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
-                                fillColor: Color(0xfff3f3f4),
+                                fillColor: Colors.white12,
                                 filled: true,
                               ),
                               validator: (String? value) {
@@ -116,16 +119,18 @@ class _SignupViewState extends State<SignupView> {
                               'Email',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 16.0,
+                                fontSize: 20.0,
+                                color: Colors.white,
+                                letterSpacing: 2.0,
                               ),
                             ),
                             const SizedBox(
                               height: 8.0,
                             ),
-                            TextFormField(
+                            TextFormField( style: Theme.of(context).textTheme.headline3,
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
-                                fillColor: Color(0xfff3f3f4),
+                                fillColor: Colors.white12,
                                 filled: true,
                               ),
                               validator: (String? value) {
@@ -153,17 +158,19 @@ class _SignupViewState extends State<SignupView> {
                               'Password',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 16.0,
+                                fontSize: 20.0,
+                                color: Colors.white,
+                                letterSpacing: 2.0,
                               ),
                             ),
                             const SizedBox(
                               height: 8.0,
                             ),
-                            TextFormField(
+                            TextFormField(style: Theme.of(context).textTheme.headline3,
                               obscureText: true,
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
-                                fillColor: Color(0xfff3f3f4),
+                                fillColor: Colors.white12,
                                 filled: true,
                               ),
                               validator: (String? value) {
@@ -189,16 +196,18 @@ class _SignupViewState extends State<SignupView> {
                               'Your role',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 16.0,
+                                fontSize: 20.0,
+                                color: Colors.white,
+                                letterSpacing: 2.0,
                               ),
                             ),
                             const SizedBox(
                               height: 8.0,
                             ),
-                            DropdownButtonFormField<int>(
+                            DropdownButtonFormField<int>(style: Theme.of(context).textTheme.headline3,
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
-                                fillColor: Color(0xfff3f3f4),
+                                fillColor: Colors.white12,
                                 filled: true,
                               ),
                               items: const[
@@ -228,27 +237,12 @@ class _SignupViewState extends State<SignupView> {
                       ],
                     ),
                     const SizedBox(
-                      height: 16.0,
+                      height: 32.0,
                     ),
                     InkWell(
                       onTap: () async {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
-                          // int? chosenRole = await showDialog(
-                          //   context: context,
-                          //   barrierDismissible: false,
-                          //   builder: (context) {
-                          //     return AlertDialog(
-                          //       content: Row(
-                          //         children: [
-                          //           ElevatedButton(onPressed: (){Navigator.pop(context,2);}, child: const Text('Teacher'),),
-                          //           ElevatedButton(onPressed: (){Navigator.pop(context,0);}, child:const Text('Student'),),
-                          //         ],
-                          //       ),
-                          //     );
-                          //   },
-                          // );
-                          // print(chosenRole);
                           UserModel? user = await _viewModel.signup(
                             userData['email']!,
                             userData['password']!,
@@ -267,10 +261,10 @@ class _SignupViewState extends State<SignupView> {
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8.0),
-                          boxShadow: <BoxShadow>[
+                          boxShadow: const<BoxShadow>[
                             BoxShadow(
-                              color: Colors.grey.shade200,
-                              offset: const Offset(2, 4),
+                              color: Colors.black38,
+                              offset:  Offset(2, 4),
                               blurRadius: 5,
                               spreadRadius: 2,
                             ),
@@ -300,8 +294,9 @@ class _SignupViewState extends State<SignupView> {
                         const Text(
                           'Already have an account ?',
                           style: TextStyle(
-                            fontSize: 14.0,
+                            fontSize: 20.0,
                             fontWeight: FontWeight.w600,
+                            color: Colors.white,
                           ),
                         ),
                         const SizedBox(
@@ -315,7 +310,7 @@ class _SignupViewState extends State<SignupView> {
                             'Login',
                             style: TextStyle(
                               color: Color(0xfff79c4f),
-                              fontSize: 16.0,
+                              fontSize: 18.0,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -336,14 +331,14 @@ class _SignupViewState extends State<SignupView> {
               },
               icon: const Icon(
                 Icons.keyboard_arrow_left,
-                color: Colors.black,
+                color: Colors.white,
               ),
               label: const Text(
                 'Back',
                 style: TextStyle(
-                  fontSize: 12.0,
+                  fontSize: 16.0,
                   fontWeight: FontWeight.w500,
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
               ),
             ),

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:semi_final_lab/res/colors.dart';
 import 'package:semi_final_lab/view_model/home_view_model.dart';
 import 'package:semi_final_lab/views/home_view.dart';
 
@@ -56,7 +57,42 @@ class _MyAppState extends State<MyApp> {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Semi Final',
-          theme: ThemeData(),
+          themeMode: ThemeMode.dark,
+          darkTheme: ThemeData(
+            fontFamily: 'ChenileDeluxeTwo',
+            canvasColor: const Color(0xFF202020),
+            cardColor: Colors.orange.shade200,
+            colorScheme: ColorScheme.fromSwatch().copyWith(
+              primary: CustomColors.primaryColor,
+            ),
+            textTheme:const TextTheme(
+              headline1: TextStyle(
+                color: Colors.white,
+                fontSize: 32.0,
+                letterSpacing: 2.0,
+              ),
+              headline2: TextStyle(
+                color: Colors.white,
+                fontSize: 24.0,
+                letterSpacing: 2.0,
+              ),
+              headline3: TextStyle(
+                color: Colors.white,
+                fontSize: 20.0,
+                letterSpacing: 2.0,
+              ),
+              headline4: TextStyle(
+                color: Colors.black,
+                fontSize: 24.0,
+                letterSpacing: 2.0,
+              ),
+              headline5: TextStyle(
+                color: Colors.black,
+                fontSize: 20.0,
+                letterSpacing: 2.0,
+              ),
+            ),
+          ),
           home: !splashProvider.isSplashEnd
               ? const SplashView()
               : homeProvider.user == null

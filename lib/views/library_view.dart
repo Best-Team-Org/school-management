@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../view_model/library_view_model.dart';
 
@@ -29,46 +30,126 @@ class _LibraryViewState extends State<LibraryView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Library'),
+        title: const Text('Library',style: TextStyle(
+          fontSize: 32.0,
+          letterSpacing: 2.0,
+        ),),
       ),
       body: Consumer<LibraryViewModel>(
         builder: (BuildContext context, LibraryViewModel provider, _) {
           return Stack(
             children: [
               if (provider.isLoading) const LinearProgressIndicator(),
-              ListView(
-                children: [
-                  TextField(
-                    controller: _searchController,
-                    decoration: InputDecoration(
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          if (_searchController.text.isEmpty) {
-                            return;
-                          }
-                          provider.getBooks(_searchController.text);
-                        },
-                        icon: const Icon(Icons.search),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView(
+                  children: [
+                    TextField(
+                      controller: _searchController,
+                      style: Theme.of(context).textTheme.headline2,
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            if (_searchController.text.isEmpty) {
+                              return;
+                            }
+                            provider.getBooks(_searchController.text);
+                          },
+                          icon:  Icon(Icons.search,color: Theme.of(context).colorScheme.primary,),
+                        ),
                       ),
                     ),
-                  ),
-                  if (!provider.isLoading)
-                    ListView.separated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: provider.bookList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final book = provider.bookList[index];
-                        return ListTile(
-                          title: Text('${book['volumeInfo']['title']??'No title'}'),
-                          subtitle: Text('${book['volumeInfo']['subtitle']??'No subtitle'}'),
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const Divider();
-                      },
-                    ),
-                ],
+                    if (!provider.isLoading)
+                      ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: provider.bookList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final book = provider.bookList[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              height: 125,
+                              child: InkWell(
+                                child: Card(
+                                  color: Theme.of(context).cardColor,
+                                  elevation: 10.0,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(5.0),
+                                        ),
+                                        margin: const EdgeInsets.all(8.0),
+                                        width: 100,
+                                        height: 125,
+                                        child: Hero(
+                                          tag: index,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(5.0),
+                                            child: Image.network(
+                                              book['volumeInfo']['imageLinks']['smallThumbnail'],
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        width: MediaQuery.of(context).size.width * 0.5,
+                                        padding: const EdgeInsets.only(top: 8.0),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              book['volumeInfo']['title']??'No title',
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 2,
+                                              style:const TextStyle(fontSize: 26.0,),
+                                            ),
+                                            const SizedBox(
+                                              height: 10.0,
+                                            ),
+                                            Text(
+                                              book['volumeInfo']['subtitle']??'No subtitle',
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 3,
+                                              style:const TextStyle(fontSize: 22.0,),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.end,
+                                            children: [
+                                              Text('${book['volumeInfo']['pageCount']??'00'} page',style:const TextStyle(fontSize: 18.0,),),
+                                              Text(book['volumeInfo']['language']??'xx',style:const TextStyle(fontSize: 18.0,),),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                onTap: () async{
+                                  Uri url = Uri.parse(book['volumeInfo']['previewLink']);
+                                  if (!await launchUrl(url)) {
+                                  throw 'Could not launch $url';
+                                  }
+                                },
+                              ),
+                            ),
+                          );
+                        },
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const Divider();
+                        },
+                      ),
+                  ],
+                ),
               ),
             ],
           );
