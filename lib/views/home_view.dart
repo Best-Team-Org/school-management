@@ -27,8 +27,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final CollectionReference news =
-      FirebaseFirestore.instance.collection("News");
+  final CollectionReference news = FirebaseFirestore.instance.collection("News");
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +47,7 @@ class _HomeViewState extends State<HomeView> {
         children: [
           StreamBuilder(
             stream: news.snapshots(),
-            builder:
-                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
                   child: CircularProgressIndicator(),
@@ -59,8 +57,7 @@ class _HomeViewState extends State<HomeView> {
                 List newsList = snapshot.data!.docs;
                 return CarouselSlider.builder(
                   itemCount: newsList.length,
-                  itemBuilder:
-                      (BuildContext context, int itemIndex, int pageViewIndex) {
+                  itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
                     return Container(
                       width: double.infinity,
                       padding: const EdgeInsets.all(8.0),
@@ -73,8 +70,7 @@ class _HomeViewState extends State<HomeView> {
                           gradient: LinearGradient(
                             colors: [
                               Color(int.parse(newsList[itemIndex]['color'])),
-                              Color(int.parse(newsList[itemIndex]['color']))
-                                  .withOpacity(0.1),
+                              Color(int.parse(newsList[itemIndex]['color'])).withOpacity(0.1),
                             ],
                           ),
                           width: 4.0,
@@ -124,8 +120,7 @@ class _HomeViewState extends State<HomeView> {
                     reverse: false,
                     autoPlay: true,
                     autoPlayInterval: const Duration(seconds: 3),
-                    autoPlayAnimationDuration:
-                        const Duration(milliseconds: 800),
+                    autoPlayAnimationDuration: const Duration(milliseconds: 800),
                     autoPlayCurve: Curves.fastOutSlowIn,
                     enlargeCenterPage: true,
                     scrollDirection: Axis.horizontal,
@@ -150,7 +145,7 @@ class _HomeViewState extends State<HomeView> {
               child: Stack(
                 children: [
                   Text(
-                    'Semi Final App',
+                    'School App',
                     style: Theme.of(context).textTheme.headline1,
                   ),
                   Positioned(
@@ -222,8 +217,7 @@ class _HomeViewState extends State<HomeView> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (_) =>
-                            ChangeNotifierProvider<LibraryViewModel>(
+                        builder: (_) => ChangeNotifierProvider<LibraryViewModel>(
                               create: (_) => LibraryViewModel(),
                               child: const LibraryView(),
                             )));
@@ -262,8 +256,7 @@ class _HomeViewState extends State<HomeView> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (_) =>
-                            ChangeNotifierProvider<LibraryViewModel>(
+                        builder: (_) => ChangeNotifierProvider<LibraryViewModel>(
                               create: (_) => LibraryViewModel(),
                               child: const SubjectsView(),
                             )));
@@ -280,8 +273,7 @@ class _HomeViewState extends State<HomeView> {
                   color: Colors.white,
                 ),
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => const AddNews()));
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => const AddNews()));
                 },
               ),
             if (user != null && user.role == 1)
@@ -295,8 +287,7 @@ class _HomeViewState extends State<HomeView> {
                   color: Colors.white,
                 ),
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => const ReadDataNews()));
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => const ReadDataNews()));
                 },
               ),
             ListTile(
