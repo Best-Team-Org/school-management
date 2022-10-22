@@ -77,6 +77,7 @@ class _ReadDataNewsState extends State<ReadDataNews> {
                 ElevatedButton(
                   child: const Text('Update',style: TextStyle(fontSize: 32.0,),),
                   onPressed: () async {
+
                     final String title = titleController.text;
                     final String subtitle = subtitleController.text;
                     await news.doc(documentSnapshot!.id).update({
@@ -86,7 +87,10 @@ class _ReadDataNewsState extends State<ReadDataNews> {
                     });
                     titleController.text = '';
                     subtitleController.text = '';
-                    Navigator.of(context).pop();
+                    if(mounted){
+                      Navigator.of(context).pop();
+                    }
+
                   },
                 )
               ],
@@ -130,7 +134,9 @@ class _ReadDataNewsState extends State<ReadDataNews> {
                       ),
                       trailing: IconButton(
                         onPressed: () {
+
                           FirebaseFirestore.instance.collection('News').doc(docId).delete();
+
                         },
                         icon: const Icon(
                           Icons.delete,

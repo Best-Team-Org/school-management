@@ -93,6 +93,7 @@ class _AddNewsState extends State<AddNews> {
           ),
           ElevatedButton(
             onPressed: () {
+
               CollectionReference studentRef = FirebaseFirestore.instance.collection("News");
               studentRef.add({
                 'title': newsTitleController.text,
@@ -102,6 +103,7 @@ class _AddNewsState extends State<AddNews> {
               Navigator.pop(context);
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Added successfully")));
+
             },
             child: const Text("Add news",style: TextStyle(fontSize: 32.0,),),
           ),
