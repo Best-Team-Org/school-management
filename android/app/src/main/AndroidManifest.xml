@@ -2,7 +2,7 @@
     package="com.example.semi_final_lab">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="semi_final_lab"
+        android:label="School App"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
