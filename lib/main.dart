@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:provider/provider.dart';
 import 'package:semi_final_lab/res/colors.dart';
 import 'package:semi_final_lab/view_model/home_view_model.dart';
@@ -66,7 +67,7 @@ class _MyAppState extends State<MyApp> {
             colorScheme: ColorScheme.fromSwatch().copyWith(
               primary: CustomColors.primaryColor,
             ),
-            textTheme:const TextTheme(
+            textTheme: const TextTheme(
               headline1: TextStyle(
                 color: Colors.white,
                 fontSize: 32.0,
