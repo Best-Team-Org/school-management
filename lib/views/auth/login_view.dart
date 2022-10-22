@@ -183,11 +183,13 @@ class _LoginViewState extends State<LoginView> {
                                 onPressed: () async {
                                   if (formKey.currentState!.validate()) {
                                     formKey.currentState!.save();
+
                                     FirebaseAuth.instance.sendPasswordResetEmail(email: email!);
                                     Navigator.pop(context);
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(content: Text('Check your email')),
                                     );
+
                                   }
                                 },
                                 child: const Text('Send',style: TextStyle(fontSize: 24.0),),),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:semi_final_lab/models/user_model.dart';
 
 class SignupViewModel {
+
   Future<UserModel?> signup(String email, String password, String username, BuildContext context,int role) async {
     UserModel? userModel;
     showDialog(context: context, builder: (context){
@@ -33,4 +34,5 @@ class SignupViewModel {
     }
     return null;
   }
+
 }

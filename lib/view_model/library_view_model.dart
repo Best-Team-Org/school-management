@@ -12,7 +12,6 @@ class LibraryViewModel with ChangeNotifier{
   }
 
   List bookList = [];
-
   Future<void> getBooks(String searchWord)async{
     isLoading = true;
     notifyListeners();
